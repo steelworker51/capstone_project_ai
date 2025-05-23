@@ -1,0 +1,4 @@
+date,description,amount,type
+2024-05-01,Groceries,100.00,debit
+2024-99-15,InvalidDate,50.00,debit
+2024-05-03,Salary,2000.00,credit
