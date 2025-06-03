@@ -1,0 +1,5 @@
+--- Financial Summary Report ---
+Total Transactions: 6
+Total Amount: $680.00
+  Debit Total: $455.00
+  Credit Total: $225.00

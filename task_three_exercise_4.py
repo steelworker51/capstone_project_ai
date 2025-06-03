@@ -84,7 +84,7 @@ def modify_transaction(transactions):
         return
 
     try:
-        tid = int(input("Enter the transaction ID to modify: "))
+        tid = int(user_input)
     except ValueError:
         print("Invalid ID format.")
         return
@@ -101,13 +101,19 @@ def modify_transaction(transactions):
     fields = ['date', 'customer_id', 'amount', 'type', 'description']
     print("Fields available to modify:", ', '.join(fields))
 
-    field = input("Enter field to modify: ").lower()
+    field = input("Enter field to modify(or cancel to abort): ").lower()
+    if field == 'cancel':
+        print("Modification cancelled.")
+        return
     if field not in fields:
         print("Invalid field.")
         return
 
-    new_value = input(f"Enter new value for {field}: ")
-
+    new_value = input(f"Enter new value for {field} (or 'cancel to abort): ")
+    if new_value.lower() == 'cancel':
+        print("Modification cancelled.")
+        return
+    
     # Validate inputs depending on field
     if field == 'date':
         try:
@@ -149,7 +155,7 @@ def remove_transaction(transactions):
 
 
     try:
-        tid = int(input("Enter the transaction ID to remove: "))
+        tid = int(user_input)
     except ValueError:
         print("Invalid ID format.")
         return
@@ -164,7 +170,14 @@ def remove_transaction(transactions):
     print(f"Transaction ID {removed['transaction_id']} removed.")
 
 if __name__ == '__main__':
-    transactions = []
+    transactions = [
+        {'transaction_id': 1, 'date': '2025-05-24', 'customer_id': 'murphy1', 'amount': 300.0, 'type': 'debit', 'description': 'TV'},
+        {'transaction_id': 2, 'date': '2025-05-25', 'customer_id': 'murphy2', 'amount': 100.0, 'type': 'debit', 'description': 'Shoes'},
+        {'transaction_id': 3, 'date': '2025-05-26', 'customer_id': 'murphy3', 'amount': 200.0, 'type': 'credit', 'description': 'Refund'},
+        {'transaction_id': 4, 'date': '2025-05-27', 'customer_id': 'murphy4', 'amount': 50.0, 'type': 'debit', 'description': 'Snacks'},
+        {'transaction_id': 5, 'date': '2022-05-26', 'customer_id': 'murphy5', 'amount': 25.0, 'type': 'credit', 'description': 'Game'},
+        {'transaction_id': 6, 'date': '2022-05-27', 'customer_id': 'murphy6', 'amount': 5.0, 'type': 'debit', 'description': 'Movie'}
+    ]
 
     while True:
         print("\nMenu:")
@@ -189,6 +202,8 @@ if __name__ == '__main__':
         else:
             print("Invalid option. Please try again.")
 
-# lines 81-84 gives the option to cancel in the modigy transaction block
+# lines 81-90 gives the option to cancel in the modify transaction block
+# use the user_input directly
 # lines 145-148 gives the option to cancel in the remove transaction block
 # when choosing modify option theree it give you the option enter the transaction id to modify or you can type cancel to abort
+# 158 it again uses user_input directly

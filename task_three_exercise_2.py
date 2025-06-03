@@ -167,7 +167,14 @@ def remove_transaction(transactions):
 
 
 if __name__ == '__main__':
-    transactions = []
+    transactions = [
+        {'transaction_id': 1, 'date': '2025-05-24', 'customer_id': 'murphy1', 'amount': 300.0, 'type': 'debit', 'description': 'TV'},
+        {'transaction_id': 2, 'date': '2025-05-25', 'customer_id': 'murphy2', 'amount': 100.0, 'type': 'debit', 'description': 'Shoes'},
+        {'transaction_id': 3, 'date': '2025-05-26', 'customer_id': 'murphy3', 'amount': 200.0, 'type': 'credit', 'description': 'Refund'},
+        {'transaction_id': 4, 'date': '2025-05-27', 'customer_id': 'murphy4', 'amount': 50.0, 'type': 'debit', 'description': 'Snacks'},
+        {'transaction_id': 5, 'date': '2022-05-26', 'customer_id': 'murphy5', 'amount': 25.0, 'type': 'credit', 'description': 'Game'},
+        {'transaction_id': 6, 'date': '2022-05-27', 'customer_id': 'murphy6', 'amount': 5.0, 'type': 'debit', 'description': 'Movie'}
+    ]
 
     while True:
         print("\nMenu:")
@@ -192,8 +199,9 @@ if __name__ == '__main__':
         else:
             print("Invalid option. Please try again.")
 
-# will have to add a transaction 
+# 
 # then will select option one for viewing transaction 
 # select option 4 for removing a transaction, then select the id of 1
 # it will prompt if you are sure yes or no if you want to delete this transaction
+# Are you sure you want to delete this transaction? (yes/no):
 # the transction is deleted and no transactions to show

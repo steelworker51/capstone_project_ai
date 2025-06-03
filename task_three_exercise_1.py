@@ -96,13 +96,10 @@ def modify_transaction(transactions):
     fields = ['date', 'customer_id', 'amount', 'type', 'description']
     print("Fields available to modify:", ', '.join(fields))
 
-    while True:
-        field = input("Enter a field to modify (or 'done' to finish): ").lower()
-        if field == 'done':
-            break
-        if field not in fields:
-            print("Invalid field. Try again.")
-            continue
+    field = input("Enter field to modify: ").lower()
+    if field not in fields:
+        print("Invalid field.")
+        return
 
     new_value = input(f"Enter new value for {field}: ")
 
@@ -120,10 +117,12 @@ def modify_transaction(transactions):
             print("Amount must be a number.")
             return
     elif field == 'type':
-        if new_value.lower() not in ['debit', 'credit']:
-            print("Type must be 'debit' or 'credit'.")
+        new_type = new_value.lower()
+        if new_type not in ['debit', 'credit']:
+            print("Invalid type. Must be 'debit' or 'credit'. Keeping the original type.")
             return
-        new_value = new_value.lower()
+        new_value = new_type
+
 
     # Apply the modification
     transaction[field] = new_value
@@ -156,7 +155,14 @@ def remove_transaction(transactions):
     print(f"Transaction ID {removed['transaction_id']} removed.")
 
 if __name__ == '__main__':
-    transactions = []
+    transactions = [
+        {'transaction_id': 1, 'date': '2025-05-24', 'customer_id': 'murphy1', 'amount': 300.0, 'type': 'debit', 'description': 'TV'},
+        {'transaction_id': 2, 'date': '2025-05-25', 'customer_id': 'murphy2', 'amount': 100.0, 'type': 'debit', 'description': 'Shoes'},
+        {'transaction_id': 3, 'date': '2025-05-26', 'customer_id': 'murphy3', 'amount': 200.0, 'type': 'credit', 'description': 'Refund'},
+        {'transaction_id': 4, 'date': '2025-05-27', 'customer_id': 'murphy4', 'amount': 50.0, 'type': 'debit', 'description': 'Snacks'},
+        {'transaction_id': 5, 'date': '2022-05-26', 'customer_id': 'murphy5', 'amount': 25.0, 'type': 'credit', 'description': 'Game'},
+        {'transaction_id': 6, 'date': '2022-05-27', 'customer_id': 'murphy6', 'amount': 5.0, 'type': 'debit', 'description': 'Movie'}
+    ]
 
     while True:
         print("\nMenu:")
@@ -181,6 +187,6 @@ if __name__ == '__main__':
         else:
             print("Invalid option. Please try again.")
 
-# code in lines 99-102 modified to enter a field to modify or choose done to finish
-# once you add a transaction, when you choose 3 it wil give you the selected transaction and it will give you the available fields to modify
-# you will enter the field you want to modify and you can keep doing this until you type done
+# code in 119-124 in case of an invalid type it will print a warning and keep the original value
+# when you modify the type if you pick anything except for credit or debit it will give you an invalid id format
+# error message as follows Invalid type. Must be 'debit' or 'credit'. Keeping the original type.

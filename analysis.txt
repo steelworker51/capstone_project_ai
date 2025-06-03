@@ -1,0 +1,6 @@
+
+--- Transaction Summary for 2022 ---
+Total Transactions: 2
+Total Amount: $30.00
+  Debit Total: $5.00
+  Credit Total: $25.00

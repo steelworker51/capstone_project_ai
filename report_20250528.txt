@@ -1,0 +1,6 @@
+--- Financial Summary Report ---
+Date Range: 2022-05-26 to 2025-05-27
+Total Transactions: 6
+Total Amount: $680.00
+  Debit Total: $455.00
+  Credit Total: $225.00

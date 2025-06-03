@@ -1,7 +1,12 @@
 import csv
 from datetime import datetime
 
-def load_transactions(filename='financial_transactions.csv'):
+def log_error(message):
+    """Log error messages to errors.txt with timestamp."""
+    with open("errors.txt", "a") as f:
+        f.write(f"{datetime.now().isoformat()} - {message}\n")
+
+def load_transactions(filename='financial_transaction.csv'):
     transactions = []
     skipped_rows = []  # to store info about skipped rows
 
@@ -17,7 +22,9 @@ def load_transactions(filename='financial_transactions.csv'):
                     try:
                         amount = float(row['amount'])
                     except ValueError:
-                        skipped_rows.append((row_num, f"Invalid amount: {row['amount']}"))
+                        error_msg = f"Invalid amout: {row['amount']}"
+                        skipped_rows.append((row_num, error_msg))
+                        log_error(f"Row {row_num}: {error_msg}")
                         continue
 
                     # Adjust amount if it's a debit
@@ -34,10 +41,15 @@ def load_transactions(filename='financial_transactions.csv'):
                     transactions.append(transaction)
 
                 except ValueError as ve:
-                    skipped_rows.append((row_num, f"Value error: {ve}"))
+                    error_msg = f"Value error: {ve}"
+                    skipped_rows.append((row_num, error_msg))
+                    log_error(f"Row {row_num}: {error_msg}")
+
 
     except FileNotFoundError:
-        print(f"Error: The file '{filename}' was not found.")
+        error_msg = f"Error: The file '{filename}' was not found."
+        print(error_msg)
+        log_error(error_msg)
 
     return transactions, skipped_rows
 
@@ -56,5 +68,5 @@ if __name__ == '__main__':
     else:
         print("\nNo rows were skipped.")
 
-# === no rows were skipped in this exercise due to invalid format ===
-
+#line 24-28 updated the code in the try except loop to the code to error.txt as well as print out a message for the error in the console
+#lines 46-49 updated the outer filenotfounderror blcok to relect the logging of the error message

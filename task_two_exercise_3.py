@@ -74,7 +74,13 @@ def view_transactions(transactions):
     print()
 
 if __name__ == '__main__':
-    transactions = []
+    transactions = [  
+        {'transaction_id': 1, 'date': '2025-05-24', 'customer_id': 'murphy1', 'amount': 300.0, 'type': 'debit', 'description': 'TV'},
+        {'transaction_id': 2, 'date': '2025-05-25', 'customer_id': 'murphy2', 'amount': 100.0, 'type': 'debit', 'description': 'Shoes'},
+        {'transaction_id': 3, 'date': '2025-05-26', 'customer_id': 'murphy3', 'amount': 200.0, 'type': 'credit', 'description': 'Refund'},
+        {'transaction_id': 4, 'date': '2025-05-27', 'customer_id': 'murphy4', 'amount': 50.0, 'type': 'debit', 'description': 'Snacks'},
+        {'transaction_id': 5, 'date': '2022-05-26', 'customer_id': 'murphy5', 'amount': 25.0, 'type': 'credit', 'description': 'Game'},
+        {'transaction_id': 6, 'date': '2022-05-27', 'customer_id': 'murphy6', 'amount': 5.0, 'type': 'debit', 'description': 'Movie'}]
 
     while True:
         print("1. Add Transaction")
@@ -94,3 +100,4 @@ if __name__ == '__main__':
 
 # this code will check and see if a customer id has already created, if there is not record it will display "no customer ids yet-you will create the first one"
 # but upon creating a customer id or if you have some available it wil suggest existing customer id's
+# upon adding it suggests Existing customer IDs: murphy1, murphy2, murphy3, murphy4, murphy5, murphy6 existing ids

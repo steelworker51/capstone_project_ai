@@ -1,0 +1,2 @@
+2025-05-29 16:48:44,810 - ERROR - Unexpected error in save_transactions: [Errno 2] No such file or directory: '/root/financial_transaction.csv'
+2025-05-29 17:42:26,244 - ERROR - Unexpected error in save_transactions: [Errno 2] No such file or directory: '/root/financial_transaction.csv'

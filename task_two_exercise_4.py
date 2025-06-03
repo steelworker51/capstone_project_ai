@@ -3,8 +3,8 @@ from datetime import datetime
 def add_transaction(transactions):
     """Add a new transaction from user input."""
     print("\n--- Add New Transaction ---")
-
-    # Validate date
+    
+    # Input and validation for date
     while True:
         date_input = input("Enter date (YYYY-MM-DD): ")
         try:
@@ -13,10 +13,10 @@ def add_transaction(transactions):
         except ValueError:
             print("Invalid date format. Please use YYYY-MM-DD.")
 
-    # Customer ID
+    # Input for customer ID (no validation for now)
     customer_id = input("Enter customer ID: ")
 
-    # Validate amount
+    # Input and validation for amount
     while True:
         amount_input = input("Enter amount: ")
         try:
@@ -25,21 +25,21 @@ def add_transaction(transactions):
         except ValueError:
             print("Amount must be a number.")
 
-    # Validate transaction type
+    # Input and validation for type
     while True:
         trans_type = input("Enter type (debit/credit): ").lower()
         if trans_type in ['debit', 'credit']:
             break
         else:
-            print("❌ Invalid type. Please enter 'debit' or 'credit'.")
+            print("Type must be 'debit' or 'credit'.")
 
-    # Description
+    # Input for description
     description = input("Enter description: ")
 
-    # Generate ID
+    # Generate transaction ID
     transaction_id = len(transactions) + 1
 
-    # Create and store transaction
+    # Create and append transaction
     transaction = {
         'transaction_id': transaction_id,
         'date': date.strftime("%Y-%m-%d"),
@@ -50,22 +50,21 @@ def add_transaction(transactions):
     }
 
     transactions.append(transaction)
-    print("✅ Transaction added successfully.\n")
+    print("Transaction added successfully.\n")
 
+
+from datetime import datetime
 
 def view_transactions(transactions):
     """Display transactions in a table, with optional filter by type."""
     print("\n--- View Transactions ---")
 
-    # Ask user if they want to filter
     filter_type = input("Filter by type? (debit/credit/all): ").lower()
 
-    # Validate filter input
     while filter_type not in ['debit', 'credit', 'all']:
         print("❌ Invalid filter option.")
         filter_type = input("Filter by type? (debit/credit/all): ").lower()
 
-    # Filter
     if filter_type != 'all':
         filtered = [t for t in transactions if t['type'] == filter_type]
     else:
@@ -75,21 +74,29 @@ def view_transactions(transactions):
         print("No transactions found for that filter.")
         return
 
-    # Header
-    print(f"\n{'ID':<5} {'Date':<12} {'Customer':<12} {'Amount':<10} {'Type':<8} Description")
-    print("-" * 60)
+    print(f"\n{'ID':<5} {'Date':<15} {'Customer':<12} {'Amount':<10} {'Type':<8} Description")
+    print("-" * 70)
 
-    # Rows
     for t in filtered:
-        print(f"{t['transaction_id']:<5} {t['date']:<12} {t['customer_id']:<12} "
+        # Convert string date to datetime object
+        date_obj = datetime.strptime(t['date'], "%Y-%m-%d")
+        formatted_date = date_obj.strftime("%b %d, %Y")
+
+        print(f"{t['transaction_id']:<5} {formatted_date:<15} {t['customer_id']:<12} "
               f"{t['amount']:<10.2f} {t['type']:<8} {t['description']}")
 
     print(f"\nTotal transactions shown: {len(filtered)}\n")
 
 
-# === MAIN MENU ===
 if __name__ == '__main__':
-    transactions = []
+    transactions = [
+        {'transaction_id': 1, 'date': '2025-05-24', 'customer_id': 'murphy1', 'amount': 300.0, 'type': 'debit', 'description': 'TV'},
+        {'transaction_id': 2, 'date': '2025-05-25', 'customer_id': 'murphy2', 'amount': 100.0, 'type': 'debit', 'description': 'Shoes'},
+        {'transaction_id': 3, 'date': '2025-05-26', 'customer_id': 'murphy3', 'amount': 200.0, 'type': 'credit', 'description': 'Refund'},
+        {'transaction_id': 4, 'date': '2025-05-27', 'customer_id': 'murphy4', 'amount': 50.0, 'type': 'debit', 'description': 'Snacks'},
+        {'transaction_id': 5, 'date': '2022-05-26', 'customer_id': 'murphy5', 'amount': 25.0, 'type': 'credit', 'description': 'Game'},
+        {'transaction_id': 6, 'date': '2022-05-27', 'customer_id': 'murphy6', 'amount': 5.0, 'type': 'debit', 'description': 'Movie'}
+    ]
 
     while True:
         print("1. Add Transaction")
@@ -105,8 +112,10 @@ if __name__ == '__main__':
             print("Goodbye!")
             break
         else:
-            print("Invalid option. Please enter 1, 2, or 3.")
+            print("Invalid option. Try again.\n")
 
-
-#lines 56-87 prompts the user to filter by devit, credit, or all uses a list comprehension to filter the transactions
-#shows onl the matching transaction (or message if none match)
+# changes date_obj = datetime.strptime(t['date'], "%Y-%m-%d")
+# formatted_date = date_obj.strftime("%b %d, %Y")
+# print(f"{t['transaction_id']:<5} {formatted_date:<15} {t['customer_id']:<12} "
+# f"{t['amount']:<10.2f} {t['type']:<8} {t['description']}")
+# Date is formatted from YYYY-MM-DD to something like May 29, 2025.
